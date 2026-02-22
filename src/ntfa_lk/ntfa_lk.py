@@ -502,8 +502,6 @@ class NTFALayer(nn.Module):
             if not hasattr(self, '_last_phase'):
                 raise ValueError("No phase information available. Run forward() first or provide tfr_phase.")
             tfr_phase = self._last_phase
-            if squeeze:
-                tfr_phase = tfr_phase.unsqueeze(0)
         elif tfr_phase.dim() == 2:
             tfr_phase = tfr_phase.unsqueeze(0)
         
@@ -540,4 +538,5 @@ class NTFAFeatureExtractor(nn.Module):
     
     def forward(self, x):
         tfr = self.ntfa(x)
+
         return tfr.view(tfr.size(0), -1) if self.flatten else tfr
