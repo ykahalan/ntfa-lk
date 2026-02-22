@@ -41,39 +41,7 @@ python3 NTFAvsDWT.py          # ML classification comparison (requires aeon, pyw
 
 ## API Overview
 
-### Main Class: `NTFA-LK`
-
-```python
-NTFALayer(
-    kernel_names=["polynomial", "gaussian"],           # Single kernel or list of kernels
-    gamma=None,                  # Kernel weights (auto-normalized to sum=1)
-    alpha=0.15,            # Alpha threshold (smoothing coefficient)
-    beta=0.9,             # Beta threshold (smart minimum)
-    window_size=20,              # Sliding window size
-    step_size=4,                 # Step between windows
-    kernel_params=None           # Parameters for each kernel
-)
-```
-
-**Methods:**
-- `fit(signal)` - Process signal and compute TFR
-- `get_tfr()` - Get time-frequency representation
-- `inverse_transform(correction_factor=None)` - Reconstruct signal
-
-### Convenience Function: `denoise`
-
-```python
-denoised = denoise(
-    signal,
-    kernel=["polynomial", "gaussian"],
-    gamma=[0.6, 0.4],
-    window_size=20,
-    alpha=0.15,
-    beta=0.9
-)
-```
-
-### PyTorch Layer: `NTFALayer`
+### Main Class: `NTFALayer`
 
 ```python
 NTFALayer(
@@ -214,6 +182,7 @@ This project is licensed under the MIT License.
 ---
 
 **v4.0.0** - Corrected algorithm, updated parameter names, backpropagatable interpolation
+
 
 
 
