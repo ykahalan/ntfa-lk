@@ -37,17 +37,20 @@ if __name__ == "__main__":
         interp_factor=0.125
     )
     
-    # Forward pass
+    # Forward pass + inverse transform
     with torch.no_grad():
-        tfr = layer(signal_torch)
+        tfr = layer(signal_torch)               # shape: (1, n_windows, n_freqs)
+        recovered = layer.inverse_transform(tfr) # shape: (1, n_windows)
     
-    # Convert back to numpy for plotting
-    tfr_np = tfr.numpy()
+    # Drop batch dim for numpy/plotting
+    tfr_np = tfr.squeeze(0).numpy()
+    recovered_np = recovered.squeeze(0).numpy()
+
+    print(f"Original signal shape:  {signal.shape}")
+    print(f"TFR shape:              {tfr_np.shape}")
+    print(f"Recovered signal shape: {recovered_np.shape}")
     
-    print(f"Original signal shape: {signal.shape}")
-    print(f"TFR shape: {tfr_np.shape}")
-    
-    # Create plots
+    # --- Plot 1: TFR heatmap ---
     print("Generating plots...")
     plt.figure(figsize=(10, 6))
     plt.imshow(tfr_np, aspect='auto', cmap='viridis')
@@ -56,24 +59,31 @@ if __name__ == "__main__":
     plt.xlabel('Frequency bins')
     plt.ylabel('Time windows')
     plt.tight_layout()
-    
-    plt.figure(figsize=(12, 6))
-    plt.subplot(2, 1, 1)
-    plt.plot(signal, 'r-', alpha=0.6, linewidth=0.8, label='Original noisy signal')
-    plt.title('Original Noisy Signal')
-    plt.xlabel('Sample')
-    plt.ylabel('Amplitude')
-    plt.grid(True, alpha=0.3)
-    plt.legend()
-    
-    plt.subplot(2, 1, 2)
-    plt.plot(tfr_np.sum(axis=1), 'b-', linewidth=1.5, label='NTFA-LK output')
-    plt.title('NTFA-LK Processing Result')
-    plt.xlabel('Time windows')
-    plt.ylabel('Magnitude')
-    plt.grid(True, alpha=0.3)
-    plt.legend()
-    
+
+    # --- Plot 2: Original, TFR sum, and recovered signal ---
+    fig, axes = plt.subplots(3, 1, figsize=(12, 9))
+
+    axes[0].plot(signal, 'r-', alpha=0.6, linewidth=0.8, label='Original noisy signal')
+    axes[0].set_title('Original Noisy Signal')
+    axes[0].set_xlabel('Sample')
+    axes[0].set_ylabel('Amplitude')
+    axes[0].grid(True, alpha=0.3)
+    axes[0].legend()
+
+    axes[1].plot(tfr_np.sum(axis=1), 'b-', linewidth=1.5, label='NTFA-LK TFR (sum over freqs)')
+    axes[1].set_title('NTFA-LK TFR — Frequency Energy per Window')
+    axes[1].set_xlabel('Time windows')
+    axes[1].set_ylabel('Magnitude')
+    axes[1].grid(True, alpha=0.3)
+    axes[1].legend()
+
+    axes[2].plot(recovered_np, 'g-', linewidth=1.5, label='Recovered signal (inverse transform)')
+    axes[2].set_title('Recovered Signal via Inverse Transform')
+    axes[2].set_xlabel('Time windows')
+    axes[2].set_ylabel('Amplitude')
+    axes[2].grid(True, alpha=0.3)
+    axes[2].legend()
+
     plt.tight_layout()
     plt.show()
     
