@@ -44,7 +44,7 @@ python3 NTFAvsDWT.py          # ML classification comparison (requires aeon, pyw
 ### Main Class: `NTFA-LK`
 
 ```python
-DDKF(
+NTFALayer(
     kernel="gaussian",           # Single kernel or list of kernels
     gamma=None,                  # Kernel weights (auto-normalized to sum=1)
     alpha=0.15,            # Alpha threshold (smoothing coefficient)
@@ -214,4 +214,5 @@ This project is licensed under the MIT License.
 ---
 
 **v4.0.0** - Corrected algorithm, updated parameter names, backpropagatable interpolation
+
 
