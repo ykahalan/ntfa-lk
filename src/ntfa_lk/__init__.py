@@ -62,13 +62,15 @@ from .ntfa_lk import (
     NTFALayer,
     NTFAFeatureExtractor,
     Kernels,
+    LearnableChebyshevKernel,
     cubic_interpolate_1d,
 )
 
-__version__ = "4.0.0"  # Major version bump due to breaking changes
+__version__ = "4.0.2"
 __all__ = [
     'NTFALayer',
     'NTFAFeatureExtractor', 
     'Kernels',
+    'LearnableChebyshevKernel',
     'cubic_interpolate_1d',
 ]
