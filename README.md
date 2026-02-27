@@ -111,7 +111,7 @@ Temperature parameter for soft operations (only used when threshold_mode='soft')
   - Example: `LearnableChebyshevKernel(degree=4, init_coeffs=[0, 1, 0, 0])`
 
 **Custom kernels:** You can also pass your own callable functions.
-```
+
 
 ## Key Features
 
@@ -183,6 +183,7 @@ This project is licensed under the MIT License.
 ---
 
 **v4.0.0** - Corrected algorithm, updated parameter names, backpropagatable interpolation
+
 
 
 
