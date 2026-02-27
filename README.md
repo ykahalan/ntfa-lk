@@ -123,6 +123,7 @@ Temperature parameter for soft operations (only used when threshold_mode='soft')
 ## Custom Kernels
 
 You can provide your own kernel functions:
+
 ```python
 import torch
 from ntfa_lk import NTFALayer
@@ -182,6 +183,7 @@ This project is licensed under the MIT License.
 ---
 
 **v4.0.0** - Corrected algorithm, updated parameter names, backpropagatable interpolation
+
 
 
 
