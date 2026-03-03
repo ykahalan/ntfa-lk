@@ -179,13 +179,3 @@ This project is licensed under the MIT License.
 
 - Skander Bensegueni
 - Yunis Kahalan
-
----
-
-**v4.0.0** - Corrected algorithm, updated parameter names, backpropagatable interpolation
-
-
-
-
-
-
